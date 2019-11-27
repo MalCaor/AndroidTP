@@ -12,8 +12,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    // Var
+    private int test;
+    private ArrayList<Integer> macollec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // debug message
         Log.d("Main", "test pour debug");
+
+        // Array list
+        macollec = new ArrayList<Integer>();
+        macollec.add(1);
+        macollec.add(2);
+        test = 2;
+        test += 1;
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
