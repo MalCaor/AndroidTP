@@ -14,6 +14,10 @@ import android.view.MenuItem;
 import android.util.Log;
 import java.util.ArrayList;
 
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.Toast;
+
 public class MainActivity extends AppCompatActivity {
 
     // Var
@@ -30,11 +34,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Main", "test pour debug");
 
         // Array list
-        macollec = new ArrayList<Integer>();
-        macollec.add(1);
-        macollec.add(2);
-        test = 2;
-        test += 1;
+        Button act1=(Button) findViewById(R.id.act1);
+        Button act2=(Button) findViewById(R.id.act2);
+        Button act3=(Button) findViewById(R.id.act3);
+        Button act4=(Button) findViewById(R.id.act4);
+        act1.setOnClickListener(btnclick);
+        act2.setOnClickListener(btnclick);
+        act3.setOnClickListener(btnclick);
+        act4.setOnClickListener(btnclick);
+
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +53,28 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
     }
+
+    private OnClickListener btnclick = new OnClickListener() {
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.act1:
+                    Toast.makeText(getApplicationContext(),    "clic sur act1",Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.act2:
+                    Toast.makeText(getApplicationContext(),    "clic sur act2",Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.act3:
+                    Toast.makeText(getApplicationContext(),    "clic sur act3",Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.act4:
+                    Toast.makeText(getApplicationContext(),    "clic sur act4",Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
