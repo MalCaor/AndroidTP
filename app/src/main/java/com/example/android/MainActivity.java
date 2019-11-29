@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
 import java.util.ArrayList;
+import android.app.Activity;
 
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private int test;
     private ArrayList<Integer> macollec;
     private Intent i;
+    static final int CODE_RETOUR_ACTIVITY3 = 3;
+    static final int CODE_RETOUR_ACTIVITY4 = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +113,40 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // on regarde quelle Activity a répondu
+
+        switch (requestCode) {
+            case CODE_RETOUR_ACTIVITY3:
+
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        Toast.makeText(getApplicationContext(),	"retour act3 ok",Toast.LENGTH_SHORT).show();
+                        return;
+
+                    case Activity.RESULT_CANCELED:
+                        Toast.makeText(getApplicationContext(),	"retour act3 cancel",Toast.LENGTH_SHORT).show();
+                        return;
+                }
+
+            case CODE_RETOUR_ACTIVITY4:
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        Bundle b = data.getExtras();
+                        String string_1 = b.getString("string_1","");
+                        String string_2 = b.getString ("string_2","");
+                        int int_1 = b.getInt("int_1", 0);
+                        long long_1 = b.getLong ("long_1", 0);
+                        Toast.makeText(getApplicationContext(),	"retour act4 ok : " + string_1+" "+string_2 +" "+Integer.toString(int_1)+" "+Long.toString(long_1),Toast.LENGTH_SHORT).show();
+                        return;
+
+                    case Activity.RESULT_CANCELED:
+                        Toast.makeText(getApplicationContext(),	"retour act4 cancel",Toast.LENGTH_SHORT).show();
+                        return;
+                }
         }
     }
 }
