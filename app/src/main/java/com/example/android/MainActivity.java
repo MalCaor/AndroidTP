@@ -1,5 +1,6 @@
 package com.example.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     // Var
     private int test;
     private ArrayList<Integer> macollec;
+    private Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +90,15 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_act1:
                 Toast.makeText(getApplicationContext(), "clic sur act1", Toast.LENGTH_SHORT).show();
+                i = new Intent(getApplicationContext(), Act1.class);
+                startActivity(i);
                 return true;
             case R.id.menu_act2:
                 Toast.makeText(getApplicationContext(), "clic sur act2", Toast.LENGTH_SHORT).show();
+                i = new Intent(getApplicationContext(), Act2.class);
+                i.putExtra("param1", "Passage de la valise pour l’activity : ");
+                i.putExtra("param2", 2);
+                startActivity(i);
                 return true;
             case R.id.menu_act3:
                 Toast.makeText(getApplicationContext(), "clic sur act3", Toast.LENGTH_SHORT).show();
