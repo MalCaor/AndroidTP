@@ -2,4 +2,8 @@
     <string name="app_name">Android</string>
     <string name="action_settings">Settings</string>
     <string name="Titre">Hello i hate french</string>
+    <string name="msg_bact1">Activité 1</string>
+    <string name="msg_bact2">Activité 2</string>
+    <string name="msg_bact3">Activité 3</string>
+    <string name="msg_bact4">Activité 4</string>
 </resources>
