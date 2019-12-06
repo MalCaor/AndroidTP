@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_act3:
                 Toast.makeText(getApplicationContext(), "clic sur act3", Toast.LENGTH_SHORT).show();
+                i = new Intent(getApplicationContext(), Act3.class);
+                startActivityForResult(i, CODE_RETOUR_ACTIVITY3);
                 return true;
             case R.id.menu_act4:
                 Toast.makeText(getApplicationContext(), "clic sur act4", Toast.LENGTH_SHORT).show();
