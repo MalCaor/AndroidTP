@@ -19,10 +19,17 @@ import android.app.Activity;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import android.content.SharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
 
     // Var
+    private eleve el1;
     private int test;
     private ArrayList<Integer> macollec;
     private Intent i;
@@ -43,10 +50,12 @@ public class MainActivity extends AppCompatActivity {
         Button act2=(Button) findViewById(R.id.act2);
         Button act3=(Button) findViewById(R.id.act3);
         Button act4=(Button) findViewById(R.id.act4);
+        Button btn5=(Button) findViewById(R.id.btn5);
         act1.setOnClickListener(btnclick);
         act2.setOnClickListener(btnclick);
         act3.setOnClickListener(btnclick);
         act4.setOnClickListener(btnclick);
+        btn5.setOnClickListener(btnclick);
 
 
 
@@ -59,7 +68,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // les json
+        SharedPreferences myPrefs = this.getSharedPreferences("mesvariablesglobales", 0);
+        SharedPreferences.Editor prefsEditor = myPrefs.edit();
+        prefsEditor.putString("svar1", "Bonjour");
+        prefsEditor.putInt("ivar2", 2);
+        prefsEditor.commit();
 
+        String instance_classe_eleve_transforme_en_json_via_gson="";
+        try {
+            el1=new eleve(1001,"CHEREL","Didier",63,"Lycee carcouet",new SimpleDateFormat("dd/MM/yyyy").parse("08/06/1940"));
+        }
+        catch (ParseException e) {}
+        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+        instance_classe_eleve_transforme_en_json_via_gson =gson.toJson(el1);
+        prefsEditor.putString("mapref", instance_classe_eleve_transforme_en_json_via_gson);
+        prefsEditor.commit();
     }
 
     private OnClickListener btnclick = new OnClickListener() {
@@ -76,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.act4:
                     Toast.makeText(getApplicationContext(),    "clic sur act4",Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.btn5:
+                    Toast.makeText(getApplicationContext(),    "clic sur act4",Toast.LENGTH_SHORT).show();
+                    i = new Intent(getApplicationContext(), Activity5.class);
+                    startActivity(i);
                     break;
             }
         }
