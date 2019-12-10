@@ -16,8 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.TextView;
+import android.content.SharedPreferences;
 public class Activity5 extends AppCompatActivity {
-
+        private SharedPreferences sp;
 
 
     @Override
@@ -59,6 +60,8 @@ public class Activity5 extends AppCompatActivity {
             }
         });
 
+        // ça va pas marcher
+        sp = this.getSharedPreferences("mapref", 0);
         // OK btn
         Ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -129,13 +132,13 @@ public class Activity5 extends AppCompatActivity {
                 {
                     try {
                         // set some vars
-                        int num = Integer.parseInt(((EditText) findViewById(R.id.etNum)).getText().toString());
+                        int    num = Integer.parseInt(((EditText) findViewById(R.id.etNum)).getText().toString());
                         String nom = ((EditText) findViewById(R.id.etNom)).getText().toString();
                         String pre = ((EditText) findViewById(R.id.etPrenom)).getText().toString();
-                        int age = Integer.parseInt(((EditText) findViewById(R.id.etAge)).getText().toString());
+                        int    age = Integer.parseInt(((EditText) findViewById(R.id.etAge)).getText().toString());
                         String add = ((EditText) findViewById(R.id.etAdd)).getText().toString();
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        java.util.Date date = dateFormat.parse(((EditText) findViewById(R.id.etDate)).getText().toString());
+                        java.util.Date   date       = dateFormat.parse(((EditText) findViewById(R.id.etDate)).getText().toString());
 
                         // add those vars
                         vmapref.setNum(num);
@@ -144,6 +147,13 @@ public class Activity5 extends AppCompatActivity {
                         vmapref.setAge(age);
                         vmapref.setAdresse(add);
                         vmapref.setDatenaiss(date);
+
+                        String mapref = sp.getString("mapref", "nothing");
+                        JsonElement vjson = new JsonParser().parse(mapref);
+                        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+                        final eleve vmapref=gson.fromJson(vjson,eleve.class);
+                        Toast.makeText(getApplicationContext(),    vmapref.getNom()+" "+vmapref.getPrenom()+" "+new SimpleDateFormat("dd/MM/yyyy").format(vmapref.getDatenaiss()) ,Toast.LENGTH_LONG).show();
+
                     }
                     catch (Exception e){
 
