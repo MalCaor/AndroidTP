@@ -20,6 +20,7 @@ public class eleve {
         adresse = vadresse;
         datenaisse = vdate;
     }
+    public eleve(){};
 
     // Geter
     public String getNom() {

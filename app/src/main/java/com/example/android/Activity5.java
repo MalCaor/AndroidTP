@@ -19,17 +19,19 @@ import android.widget.TextView;
 import android.content.SharedPreferences;
 public class Activity5 extends AppCompatActivity {
         private SharedPreferences sp;
-
+private eleve vmapref=new eleve();
+    private SharedPreferences.Editor prefsEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_5);
         SharedPreferences myPrefs = this.getSharedPreferences("mesvariablesglobales", 0);
+        prefsEditor = myPrefs.edit();
         String mapref = myPrefs.getString("mapref", "nothing");
         JsonElement vjson = new JsonParser().parse(mapref);
         Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
-        final eleve vmapref=gson.fromJson(vjson,eleve.class);
+        vmapref=gson.fromJson(vjson,eleve.class);
         Toast.makeText(getApplicationContext(),    vmapref.getNom()+" "+vmapref.getPrenom()+" "+new SimpleDateFormat("dd/MM/yyyy").format(vmapref.getDatenaiss()) ,Toast.LENGTH_LONG).show();
 
         // set the TextView
@@ -46,10 +48,10 @@ public class Activity5 extends AppCompatActivity {
         etPrenom.setText(vmapref.getPrenom());
         etAge.setText(String.valueOf(vmapref.getAge()));
         etAdd.setText(vmapref.getAdresse());
-        etDate.setText(String.valueOf(vmapref.getAge()));
+        etDate.setText(String.valueOf(vmapref.getDatenaiss()));
 
         // get the button
-        Button Ok  = (Button)findViewById(R.id.btnOk);
+        Button Ok  = (Button)findViewById(R.id.btnOK);
         Button Can = (Button)findViewById(R.id.btnCancel);
 
         // Cancel BTN
@@ -147,16 +149,15 @@ public class Activity5 extends AppCompatActivity {
                         vmapref.setAge(age);
                         vmapref.setAdresse(add);
                         vmapref.setDatenaiss(date);
-
-                        String mapref = sp.getString("mapref", "nothing");
-                        JsonElement vjson = new JsonParser().parse(mapref);
                         Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
-                        final eleve vmapref=gson.fromJson(vjson,eleve.class);
+                        String instance_classe_eleve_transforme_en_json_via_gson =gson.toJson(vmapref);
+                        prefsEditor.putString("mapref", instance_classe_eleve_transforme_en_json_via_gson);
+                        prefsEditor.commit();
                         Toast.makeText(getApplicationContext(),    vmapref.getNom()+" "+vmapref.getPrenom()+" "+new SimpleDateFormat("dd/MM/yyyy").format(vmapref.getDatenaiss()) ,Toast.LENGTH_LONG).show();
 
                     }
                     catch (Exception e){
-
+                        Toast.makeText(getApplicationContext(), "Mise a Jour Imposible", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         catch (ParseException e) {}
         Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
         instance_classe_eleve_transforme_en_json_via_gson =gson.toJson(el1);
-        prefsEditor.putString("mapref", instance_classe_eleve_transforme_en_json_via_gson);
+       // prefsEditor.putString("mapref", instance_classe_eleve_transforme_en_json_via_gson);
         prefsEditor.commit();
     }
 
